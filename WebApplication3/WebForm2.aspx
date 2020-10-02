@@ -29,6 +29,8 @@
 
         <asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>
 
+        <asp:Label ID="Label3" runat="server" Text=""></asp:Label>
+
         <label>性别：</label>
 
         <asp:TextBox ID="TextBox4" runat="server"></asp:TextBox>
@@ -36,6 +38,8 @@
         <label>手机号：</label>
 
         <asp:TextBox ID="TextBox5" runat="server"></asp:TextBox>
+
+        <asp:Label ID="Label2" runat="server" Text=""></asp:Label>
 
         <label>登录密码：</label>
 
@@ -63,7 +67,7 @@
         <br/>
         <asp:Button ID="Button1" runat="server" Text="确定" CommandName="Insert" OnClick="Button1_Click"/>
         <br/>
-        <asp:Label ID="Label1" runat="server" Text=""></asp:Label>
+
     </div>
 </form>
 </body>
