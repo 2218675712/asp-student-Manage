@@ -9,11 +9,15 @@ namespace WebApplication3
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            getClassInfoData();
-            var ID = Convert.ToInt32(Request["studentID"]);
-            if (ID == 0) return;
-            Button1.CommandName = "Update";
-            UpdateUser();
+            if (!IsPostBack)
+            {
+                getClassInfoData();
+                var ID = Convert.ToInt32(Request["studentID"]);
+                if (ID == 0) return;
+                Button1.CommandName = "Update";
+                UpdateUser();
+            }
+
         }
 
         protected void Button1_Click(object sender, EventArgs e)
