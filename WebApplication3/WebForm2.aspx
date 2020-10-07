@@ -19,7 +19,7 @@
     <div>
         <asp:GridView ID="GridView1" runat="server"></asp:GridView>
         <label>学生姓名：</label>
-        <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+        <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox><asp:Label ID="Label1" runat="server" Text=""></asp:Label>
 
         <label>班级Id：</label>
 

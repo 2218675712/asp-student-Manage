@@ -17,7 +17,6 @@ namespace WebApplication3
                 Button1.CommandName = "Update";
                 UpdateUser();
             }
-
         }
 
         protected void Button1_Click(object sender, EventArgs e)
@@ -67,6 +66,14 @@ namespace WebApplication3
             string v11 = TextBox11.Text.Trim();
             if (Button1.CommandName == "Insert")
             {
+                //string.IsNullOrEmpty(v1)     // 为null或者空 条件为true
+                if (string.IsNullOrEmpty(v1))
+                {
+                    Label1.Text = "用户名不能为空";
+                    return;
+                }
+
+
                 DataSet isStudentRepeat =
                     OperaterBase.GetData("select * from studentInfo where studentNum='" + v3 + "'");
                 if (isStudentRepeat.Tables[0].Rows.Count > 0)
@@ -82,6 +89,7 @@ namespace WebApplication3
                     return;
                 }
 
+
                 string sql =
                     "insert into studentInfo (studentName,classID,studentNum,studentSex,mobile,password,birthday,province,city,district,address) values ('" +
                     v1 + "','" + v2 + "','" + v3 + "','" + v4 + "','" + v5 + "','" + v6 + "'," + v7 + ",'" + v8 +
@@ -89,7 +97,6 @@ namespace WebApplication3
                 int flag = OperaterBase.CommandBySql(sql);
                 if (flag > 0)
                 {
-                  
                     // 跳转页面
                     Response.Redirect("WebForm1.aspx");
                 }
