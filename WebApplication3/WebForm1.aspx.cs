@@ -25,7 +25,7 @@ namespace WebApplication3
             //2.查看隐藏控件中的ID是否获取到了
             DataSet ds =
                 OperaterBase.GetData(
-                    "select a.*,b.className from studentInfo as a left join classInfo as b on a.classID=b.classID where a.IsDelete=0 and b.IsDelete=0;");
+                    "select a.*,b.className from studentInfo a left join classInfo b on a.classID=b.classID where a.IsDelete=0 and b.IsDelete=0");
             Repeater1.DataSource = ds;
             Repeater1.DataBind();
         }

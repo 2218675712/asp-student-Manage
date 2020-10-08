@@ -13,6 +13,7 @@ namespace WebApplication3
             {
                 getClassInfoData();
                 var ID = Convert.ToInt32(Request["studentID"]);
+                HiddenField1.Value = ID.ToString();
                 if (ID == 0) return;
                 Button1.CommandName = "Update";
                 UpdateUser();
@@ -43,7 +44,6 @@ namespace WebApplication3
             TextBox9.Text = ds.Tables[0].Rows[0]["city"].ToString();
             TextBox10.Text = ds.Tables[0].Rows[0]["district"].ToString();
             TextBox11.Text = ds.Tables[0].Rows[0]["address"].ToString();
-            // TODO 可以进行提交，写语句调用adduser方法
         }
 
         /// <summary>
@@ -103,6 +103,20 @@ namespace WebApplication3
             }
             else if (Button1.CommandName == "Update")
             {
+                // 不能为空
+                //string.IsNullOrEmpty(v1)     // 为null或者空 条件为true
+                if (string.IsNullOrEmpty(v1))
+                {
+                    Label1.Text = "用户名不能为空";
+                    return;
+                }
+
+                // 校验用户规则
+                if (!UpdateUserRules(ID, v3, v5))
+                {
+                    return;
+                }
+                
                 string sql =
                     "update studentInfo set studentName='" + v1 + "',classID='" + v2 + "',studentNum='" + v3 +
                     "',studentSex='" + v4 + "',mobile='" + v5 + "',password='" + v6 + "',birthday='" + v7 +
@@ -115,6 +129,56 @@ namespace WebApplication3
                     Response.Redirect("WebForm1.aspx");
                 }
             }
+        }
+
+        /// <summary>
+        /// 更新用户校验规则
+        /// </summary>
+        /// <param name="ID">用户id</param>
+        /// <param name="v3">用户学号</param>
+        /// <param name="v5">用户手机号</param>
+        /// <returns></returns>
+        private bool UpdateUserRules(int ID, string v3, string v5)
+        {
+            // 查用户是否存在
+            DataSet studentListByID =
+                OperaterBase.GetData("select * from studentInfo where studentID= '" + ID + "'");
+            if (studentListByID.Tables[0].Rows.Count > 0)
+            {
+                //判断学号是否相等我不是我自己我要修改一个新的学号
+                if (v3 != studentListByID.Tables[0].Rows[0]["studentNum"].ToString())
+                {
+                    //查询数据库中是否存在这个学号
+                    DataSet studentNumList =
+                        OperaterBase.GetData("select * from studentInfo where studentNum='" + v3 + "'");
+                    if (studentNumList.Tables[0].Rows.Count > 0)
+                    {
+                        Label3.Text = "学号已经重复";
+                    }
+                    else
+                    {
+                        //查询数据库中是否存在这个学号
+                        DataSet mobileList =
+                            OperaterBase.GetData("select * from studentInfo where mobile='" + v5 + "'");
+                        if (mobileList.Tables[0].Rows.Count > 0)
+                        {
+                            Label2.Text = "手机号已经重复";
+                        }
+                        else
+                        {
+                            return true;
+                        }
+                    }
+                }
+                else
+                {
+                }
+            }
+            else
+            {
+            }
+
+            return false;
         }
 
         /// <summary>

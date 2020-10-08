@@ -18,6 +18,7 @@
 <form id="form1" runat="server">
     <div>
         <asp:GridView ID="GridView1" runat="server"></asp:GridView>
+        <asp:HiddenField ID="HiddenField1" Value="" runat="server" />
         <label>学生姓名：</label>
         <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox><asp:Label ID="Label1" runat="server" Text=""></asp:Label>
 
