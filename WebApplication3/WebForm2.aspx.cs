@@ -103,20 +103,12 @@ namespace WebApplication3
             }
             else if (Button1.CommandName == "Update")
             {
-                // 不能为空
-                //string.IsNullOrEmpty(v1)     // 为null或者空 条件为true
-                if (string.IsNullOrEmpty(v1))
+                // 校验用户规则
+                if (!UpdateUserRules(ID, v1, v3, v5))
                 {
-                    Label1.Text = "用户名不能为空";
                     return;
                 }
 
-                // 校验用户规则
-                if (!UpdateUserRules(ID, v3, v5))
-                {
-                    return;
-                }
-                
                 string sql =
                     "update studentInfo set studentName='" + v1 + "',classID='" + v2 + "',studentNum='" + v3 +
                     "',studentSex='" + v4 + "',mobile='" + v5 + "',password='" + v6 + "',birthday='" + v7 +
@@ -138,8 +130,16 @@ namespace WebApplication3
         /// <param name="v3">用户学号</param>
         /// <param name="v5">用户手机号</param>
         /// <returns></returns>
-        private bool UpdateUserRules(int ID, string v3, string v5)
+        private bool UpdateUserRules(int ID, string v1, string v3, string v5)
         {
+            // 不能为空
+            //string.IsNullOrEmpty(v1)     // 为null或者空 条件为true
+            if (string.IsNullOrEmpty(v1))
+            {
+                Label1.Text = "用户名不能为空";
+                return false;
+            }
+
             // 查用户是否存在
             DataSet studentListByID =
                 OperaterBase.GetData("select * from studentInfo where studentID= '" + ID + "'");
