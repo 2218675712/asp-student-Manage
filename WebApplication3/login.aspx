@@ -16,7 +16,9 @@
         <br/>
         <asp:Button ID="Button1" runat="server" Text="登录" OnClick="Button1_Click"/>
         <br />
-        <asp:Label ID="Label1" runat="server" Text=""></asp:Label>
+        <asp:Label ID="Label1" runat="server" Text=""></asp:Label><br />
+        <asp:LinkButton ID="LinkButton1" runat="server" OnClick="LinkButton1_Click">注册账号</asp:LinkButton>
+        <asp:LinkButton ID="LinkButton2" runat="server" OnClick="LinkButton2_Click">忘记密码</asp:LinkButton>
     </div>
 </form>
 </body>

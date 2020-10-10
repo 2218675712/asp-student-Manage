@@ -14,6 +14,8 @@ namespace WebApplication3
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            LinkButton1.Visible = false;
+            LinkButton2.Visible = false;
         }
 
         protected void Button1_Click(object sender, EventArgs e)
@@ -26,14 +28,28 @@ namespace WebApplication3
             if (ds.Tables[0].Rows.Count > 0)
             {
                 Label1.Text = "登录成功";
+                // 跳转页面
+                Response.Redirect("/WebForm1.aspx");
             }
             else
             {
                 Label1.Text = "登录失败";
+                LinkButton1.Visible = true;
+                LinkButton2.Visible = true;
             }
 
-            // 跳转页面
-            Response.Redirect("/WebForm1.aspx");
+
+        }
+
+        protected void LinkButton1_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("WebForm2.aspx");
+        }
+
+        protected void LinkButton2_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("WebForm3.aspx");
+
         }
     }
 }

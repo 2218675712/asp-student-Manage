@@ -157,7 +157,7 @@ namespace WebApplication3
                     }
                     else
                     {
-                        //查询数据库中是否存在这个学号
+                        //查询数据库中是否存在这个手机
                         DataSet mobileList =
                             OperaterBase.GetData("select * from studentInfo where mobile='" + v5 + "'");
                         if (mobileList.Tables[0].Rows.Count > 0)
@@ -172,10 +172,22 @@ namespace WebApplication3
                 }
                 else
                 {
+                    //查询数据库中是否存在这个手机
+                    DataSet mobileList =
+                        OperaterBase.GetData("select * from studentInfo where mobile='" + v5 + "'");
+                    if (mobileList.Tables[0].Rows.Count > 0)
+                    {
+                        Label2.Text = "手机号已经重复";
+                    }
+                    else
+                    {
+                        return true;
+                    }
                 }
             }
             else
             {
+                Label1.Text = "用户信息已经被删除，请检查";
             }
 
             return false;
