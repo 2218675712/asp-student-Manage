@@ -34,7 +34,8 @@ namespace WebApplication3
             string sql = "select * from  studentInfo where studentID = " + ID + "";
             DataSet ds = OperaterBase.GetData(sql);
             TextBox1.Text = ds.Tables[0].Rows[0]["studentName"].ToString();
-            TextBox2.Text = ds.Tables[0].Rows[0]["classID"].ToString();
+            // TextBox2.Text = ds.Tables[0].Rows[0]["classID"].ToString();
+            DropDownList1.SelectedValue = ds.Tables[0].Rows[0]["classID"].ToString();
             TextBox3.Text = ds.Tables[0].Rows[0]["studentNum"].ToString();
             TextBox4.Text = ds.Tables[0].Rows[0]["studentSex"].ToString();
             TextBox5.Text = ds.Tables[0].Rows[0]["mobile"].ToString();
@@ -54,7 +55,8 @@ namespace WebApplication3
             int ID = Convert.ToInt32(Request["studentID"]);
             // .Trim()去掉空格
             string v1 = TextBox1.Text.Trim();
-            string v2 = TextBox2.Text.Trim();
+            string v2=DropDownList1.SelectedValue;
+            // string v2 = TextBox2.Text.Trim();
             string v3 = TextBox3.Text.Trim();
             string v4 = TextBox4.Text.Trim();
             string v5 = TextBox5.Text.Trim();
@@ -170,20 +172,6 @@ namespace WebApplication3
                         }
                     }
                 }
-                else
-                {
-                    //查询数据库中是否存在这个手机
-                    DataSet mobileList =
-                        OperaterBase.GetData("select * from studentInfo where mobile='" + v5 + "'");
-                    if (mobileList.Tables[0].Rows.Count > 0)
-                    {
-                        Label2.Text = "手机号已经重复";
-                    }
-                    else
-                    {
-                        return true;
-                    }
-                }
             }
             else
             {
@@ -200,8 +188,14 @@ namespace WebApplication3
         {
             string sql = "select * from classInfo";
             DataSet ds = OperaterBase.GetData(sql);
+            // 给上面表格绑定
             GridView1.DataSource = ds.Tables[0].DefaultView;
             GridView1.DataBind();
+            // 给下拉框绑定
+            DropDownList1.DataSource = ds;
+            DropDownList1.DataTextField = "className";
+            DropDownList1.DataValueField = "classID";
+            DropDownList1.DataBind();
         }
     }
 }

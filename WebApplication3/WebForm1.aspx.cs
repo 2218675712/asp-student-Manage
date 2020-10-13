@@ -23,9 +23,15 @@ namespace WebApplication3
         {
             //1.修改查询sql语句 只要主表的ID
             //2.查看隐藏控件中的ID是否获取到了
-            DataSet ds =
+            /*DataSet ds =
                 OperaterBase.GetData(
                     "select a.*,b.className from studentInfo a left join classInfo b on a.classID=b.classID where a.IsDelete=0 and b.IsDelete=0");
+            */
+            // 利用视图查询
+            DataSet ds =
+                OperaterBase.GetData(
+                    "select * from v_StudentInfo_ClassInfo");
+
             Repeater1.DataSource = ds;
             Repeater1.DataBind();
         }
