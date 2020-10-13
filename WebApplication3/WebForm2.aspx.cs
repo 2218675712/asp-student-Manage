@@ -193,7 +193,9 @@ namespace WebApplication3
             GridView1.DataBind();
             // 给下拉框绑定
             DropDownList1.DataSource = ds;
+            // 绑定下拉框文字
             DropDownList1.DataTextField = "className";
+            //绑定下拉框value值
             DropDownList1.DataValueField = "classID";
             DropDownList1.DataBind();
         }
