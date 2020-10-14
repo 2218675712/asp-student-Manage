@@ -209,14 +209,20 @@ namespace WebApplication3
         /// <param name="e"></param>
         protected void Button2_Click(object sender, EventArgs e)
         {
-            avatatUpload();
+            string filename = avatatUpload();
+            int ID = Convert.ToInt32(Request["studentID"]);
+            if (Button1.CommandName == "Update")
+            {
+                OperaterBase.CommandBySql("update studentInfo set avatarUrl= '" + filename + "' where studentID=" + ID +
+                                          "");
+            }
         }
 
         /// <summary>
         /// 图片上传
         /// </summary>
         /// <returns>图片上传成功或者失败</returns>
-        private bool avatatUpload()
+        private string avatatUpload()
         {
             // 获取文件名
             string strName = FileUpload1.PostedFile.FileName;
@@ -230,7 +236,8 @@ namespace WebApplication3
                     FileUpload1.PostedFile.SaveAs(newUploadModel.newFileName);
                     Label4.Text = newUploadModel.message;
                     Image1.ImageUrl = newUploadModel.fileName;
-                    return true;
+                    // 插入到数据库
+                    return newUploadModel.fileName;
                 }
                 else
                 {
@@ -243,7 +250,7 @@ namespace WebApplication3
                 throw;
             }
 
-            return false;
+            return null;
         }
     }
 }

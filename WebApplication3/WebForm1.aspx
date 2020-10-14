@@ -6,6 +6,11 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title></title>
+    <style>
+        .avatar{
+        width: 50px;
+        height: 50px;}
+    </style>
 </head>
 <body>
 <form id="form1" runat="server">
@@ -30,6 +35,7 @@
                         <td>地区</td>
                         <td>详细地址</td>
                         <td>操作</td>
+                        <td>头像</td>
                     </tr>
                 </HeaderTemplate>
                 <ItemTemplate>
@@ -47,6 +53,7 @@
                         <td><%#Eval("city") %></td>
                         <td><%#Eval("district") %></td>
                         <td><%#Eval("address") %></td>
+                        <td><asp:Image ID="Image1" runat="server" ImageUrl='<%#Eval("avatarUrl")%>' CssClass="avatar"/></td>
                         <%--sa=="1"?条件成立的时候:条件不成立的时候--%>
                         <%--<td><%#Eval("IsDelete").ToString()=="false"?"未删除":"已删除"%></td>--%>
                         <td>
