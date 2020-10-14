@@ -1,20 +1,17 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.IO;
-
+using System.Web;
 
 namespace WebApplication3
 {
-    public partial class photoUpload : System.Web.UI.Page
+    public class uploadHelper
     {
-        protected void Page_Load(object sender, EventArgs e)
+        public static uploadModel imgUpload(string strName, bool hasFile)
         {
-        }
+            uploadModel newUploadModel = new uploadModel();
+            newUploadModel.result = false;
 
-        protected void Button1_Click(object sender, EventArgs e)
-        {
-            // 使用file-upload控件获取文件上传的文件名
-            string strName = FileUpload1.PostedFile.FileName;
             // 如果文件名存在
             if (strName != "")
             {
@@ -33,11 +30,11 @@ namespace WebApplication3
                  * 对于路径中的字符“\”在字符串中必须以"\\"表示
                  * 因为"\"为特殊字符。或者可以使用上一行的给路径前面加上@
                  */
-                string juedui = Server.MapPath("~\\images\\");
+                string juedui = HttpContext.Current.Server.MapPath("~\\images\\");
                 // 绝对路径+新文件名+后缀名=新的文件名称
                 string newFileName = juedui + newName + kzm;
                 // 验证FileUpload控件确实包含文件
-                if (FileUpload1.HasFile)
+                if (hasFile)
                 {
                     String[] allowedExtensions = {".gif", ".png", ".bmp", ".jpg", ".txt"};
                     // 判断后缀名是否包含数组中
@@ -57,28 +54,25 @@ namespace WebApplication3
                             Directory.CreateDirectory(juedui);
                         }
 
-                        Label1.Text = newFileName;
-                        Label2.Text = "<b>原文件路径:</b>" + FileUpload1.PostedFile.FileName + "<br/>" + "<b>文件大小:</b>" +
-                                      FileUpload1.PostedFile.ContentLength + "字节<br/>" + "文件类型:" +
-                                      FileUpload1.PostedFile.ContentType + "<br/>";
-                        Label3.Text = xiangdui + newName + kzm;
-                        Label4.Text = "文件上传成功";
-                        // 将图片存储到服务器上
-                        FileUpload1.PostedFile.SaveAs(newFileName);
-                        Image1.ImageUrl = xiangdui + newName + kzm;
+                        newUploadModel.newFileName = newFileName;
+                        newUploadModel.fileName = xiangdui + newName + kzm;
+                        newUploadModel.message = "上传成功";
+                        newUploadModel.result = true;
                     }
                     catch (Exception exception)
                     {
-                        Label4.Text = "文件上传失败";
+                        newUploadModel.message = "出现异常";
                         Console.WriteLine(exception);
                         throw;
                     }
                 }
                 else
                 {
-                    Label4.Text = "只能上传图片文件";
+                    newUploadModel.message = "文件名不存在";
                 }
             }
+
+            return newUploadModel;
         }
     }
 }

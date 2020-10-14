@@ -202,74 +202,45 @@ namespace WebApplication3
             DropDownList1.DataBind();
         }
 
+        /// <summary>
+        /// 点击按钮上传图片
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void Button2_Click(object sender, EventArgs e)
         {
             avatatUpload();
         }
 
-        public bool avatatUpload()
+        /// <summary>
+        /// 图片上传
+        /// </summary>
+        /// <returns>图片上传成功或者失败</returns>
+        private bool avatatUpload()
         {
-            // 使用file-upload控件获取文件上传的文件名
+            // 获取文件名
             string strName = FileUpload1.PostedFile.FileName;
-            // 如果文件名存在
-            if (strName != "")
+            try
             {
-                // 判断文件是否ok
-                bool fileOk = false;
-                // 获取.的索引号，在这里，代表图片和名字与后缀的间隔
-                int i = strName.LastIndexOf(".");
-                // 获取文件后缀名
-                string kzm = strName.Substring(i);
-                // 给文件生成一个新的后缀名
-                string newName = Guid.NewGuid().ToString();
-                // 设置文件相对网站根目录的保存路径，~号表示当前目录，在此目录下的images文件夹
-                string xiangdui = @"~\images\";
-                /*
-                 * 设置文件保存的本地目录的绝对路径
-                 * 对于路径中的字符“\”在字符串中必须以"\\"表示
-                 * 因为"\"为特殊字符。或者可以使用上一行的给路径前面加上@
-                 */
-                string juedui = Server.MapPath("~\\images\\");
-                // 绝对路径+新文件名+后缀名=新的文件名称
-                string newFileName = juedui + newName + kzm;
-                // 验证FileUpload控件确实包含文件
-                if (FileUpload1.HasFile)
+                // 创建上传模型类，用来接收上传的参数
+                uploadModel newUploadModel = new uploadModel();
+                newUploadModel = uploadHelper.imgUpload(strName, FileUpload1.HasFile);
+                if (newUploadModel.result)
                 {
-                    String[] allowedExtensions = {".gif", ".png", ".bmp", ".jpg", ".txt"};
-                    // 判断后缀名是否包含数组中
-                    if (allowedExtensions.Contains(kzm))
-                    {
-                        fileOk = true;
-                    }
-                }
-
-                if (fileOk)
-                {
-                    try
-                    {
-                        // 判断该路径是否存在
-                        if (!Directory.Exists(juedui))
-                        {
-                            Directory.CreateDirectory(juedui);
-                        }
-
-                        // 将图片存储到服务器上
-                        FileUpload1.PostedFile.SaveAs(newFileName);
-                        Label4.Text = "上传成功";
-                        Image1.ImageUrl= xiangdui+newName+kzm;
-
-                        return true;
-                    }
-                    catch (Exception exception)
-                    {
-                        Console.WriteLine(exception);
-                        throw;
-                    }
+                    FileUpload1.PostedFile.SaveAs(newUploadModel.newFileName);
+                    Label4.Text = newUploadModel.message;
+                    Image1.ImageUrl = newUploadModel.fileName;
+                    return true;
                 }
                 else
                 {
-                    Label4.Text = "只能上传图片文件";
+                    Label1.Text = newUploadModel.message;
                 }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
             }
 
             return false;
