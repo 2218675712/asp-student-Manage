@@ -72,6 +72,8 @@
         <asp:FileUpload runat="server" ID="FileUpload1"/>
         <asp:Button ID="Button2" runat="server" Text="上传" OnClick="Button2_Click"/>
         <asp:Label ID="Label4" runat="server" Text=""></asp:Label>
+        <asp:Image ID="Image1" runat="server" Height="50px" Width="50px"/>
+        
         <br>
         <asp:Button ID="Button1" runat="server" Text="确定" CommandName="Insert" OnClick="Button1_Click"/>
         <br/>

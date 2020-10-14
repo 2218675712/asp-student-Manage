@@ -64,6 +64,7 @@ namespace WebApplication3
                         Label4.Text = "文件上传成功";
                         // 将图片存储到服务器上
                         FileUpload1.PostedFile.SaveAs(newFileName);
+                        Image1.ImageUrl = xiangdui+newName+kzm;
                     }
                     catch (Exception exception)
                     {
