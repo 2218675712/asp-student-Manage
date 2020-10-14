@@ -27,6 +27,7 @@
         <%-- <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox> --%>
         <asp:DropDownList ID="DropDownList1" runat="server"></asp:DropDownList>
 
+
         <label>学号：</label>
 
         <asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>
@@ -67,6 +68,11 @@
 
         <asp:TextBox ID="TextBox11" runat="server"></asp:TextBox>
         <br/>
+        <label >学生头像：</label>
+        <asp:FileUpload runat="server" ID="FileUpload1"/>
+        <asp:Button ID="Button2" runat="server" Text="上传" OnClick="Button2_Click"/>
+        <asp:Label ID="Label4" runat="server" Text=""></asp:Label>
+        <br>
         <asp:Button ID="Button1" runat="server" Text="确定" CommandName="Insert" OnClick="Button1_Click"/>
         <br/>
 
