@@ -50,6 +50,7 @@ namespace WebApplication3
             //绑定下拉框value值
             DropDownList1.DataValueField = "ProvinceID";
             DropDownList1.DataBind();
+            DropDownList1.Items.Insert(0, new ListItem("请选择省份", "0"));
         }
 
         /// <summary>
@@ -67,6 +68,7 @@ namespace WebApplication3
             //绑定下拉框value值
             DropDownList2.DataValueField = "CityID";
             DropDownList2.DataBind();
+            DropDownList2.Items.Insert(0, new ListItem("请选择城市", "0"));
         }
 
         /// <summary>
@@ -84,6 +86,7 @@ namespace WebApplication3
             //绑定下拉框value值
             DropDownList3.DataValueField = "DistrictID";
             DropDownList3.DataBind();
+            DropDownList3.Items.Insert(0, new ListItem("请选择地区", "0"));
         }
     }
 }
