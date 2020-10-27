@@ -13,7 +13,17 @@ namespace WebApplication3
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            repeaterGetData();
+            if (!IsPostBack)
+            {
+                string mobile = Session["mobile"].ToString();
+                if (!string.IsNullOrEmpty(mobile))
+                {
+                    string time = System.DateTime.Now.ToString();
+                    Response.Write("欢迎" + mobile + "，您在" + time + "登录");
+                }
+
+                repeaterGetData();
+            }
         }
 
         /// <summary>

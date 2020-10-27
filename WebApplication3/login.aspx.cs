@@ -22,12 +22,19 @@ namespace WebApplication3
         {
             string mobile = TextBox1.Text;
             string password = TextBox2.Text;
+
+
             string sql = "select * from studentInfo where mobile='" + mobile + "' and password='" + password +
                          "'";
             DataSet ds = OperaterBase.GetData(sql);
             if (ds.Tables[0].Rows.Count > 0)
             {
                 Label1.Text = "登录成功";
+
+                // 存入session，存入登录的手机号
+                Session["mobile"] = ds.Tables[0].Rows[0]["mobile"];
+
+
                 // 跳转页面
                 Response.Redirect("/WebForm1.aspx");
             }
@@ -37,8 +44,6 @@ namespace WebApplication3
                 LinkButton1.Visible = true;
                 LinkButton2.Visible = true;
             }
-
-
         }
 
         protected void LinkButton1_Click(object sender, EventArgs e)
@@ -49,7 +54,6 @@ namespace WebApplication3
         protected void LinkButton2_Click(object sender, EventArgs e)
         {
             Response.Redirect("WebForm3.aspx");
-
         }
     }
 }
