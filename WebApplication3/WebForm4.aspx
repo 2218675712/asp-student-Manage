@@ -19,6 +19,7 @@
             <asp:DropDownList ID="DropDownList3" runat="server" AutoPostBack="True" OnSelectedIndexChanged="DropDownList3_SelectedIndexChanged">
                                 <asp:ListItem Value="0">请选择地区</asp:ListItem>
             </asp:DropDownList>
+            <asp:Button ID="Button1" runat="server" Text="提交" OnClick="Button1_Click" />
         </div>
     </form>
 </body>

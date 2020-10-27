@@ -88,5 +88,29 @@ namespace WebApplication3
             DropDownList3.DataBind();
             DropDownList3.Items.Insert(0, new ListItem("请选择地区", "0"));
         }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            string DropDownList1Text = DropDownList1.SelectedItem.Text;
+            string DropDownList2Text = DropDownList2.SelectedItem.Text;
+            string DropDownList3Text = DropDownList3.SelectedItem.Text;
+            if (DropDownList1.SelectedValue == "0")
+            {
+                DropDownList1Text = "";
+            }
+
+            if (DropDownList2.SelectedValue == "0")
+            {
+                DropDownList2Text = "";
+            }
+
+            if (DropDownList3.SelectedValue == "0")
+            {
+                DropDownList3Text = "";
+            }
+
+            int num = OperaterBase.CommandBySql("insert into S_Address values (newid(),'" + DropDownList1Text + "','" +
+                                                DropDownList2Text + "','" + DropDownList3Text + "')");
+        }
     }
 }
