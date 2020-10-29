@@ -88,5 +88,15 @@ namespace WebApplication3
                 Repeater1.DataBind();
             }
         }
+/// <summary>
+/// 退出登录
+/// </summary>
+/// <param name="sender"></param>
+/// <param name="e"></param>
+        protected void Button2_Click(object sender, EventArgs e)
+        {
+            Session.Clear();
+            Response.Redirect("login.aspx");
+        }
     }
 }

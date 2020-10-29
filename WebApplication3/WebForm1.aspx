@@ -17,6 +17,7 @@
     <div>
         <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
         <asp:Button ID="Button1" runat="server" Text="输入手机号查询" OnClick="Button1_Click"/>
+        <asp:Button ID="Button2" runat="server" Text="退出登录" OnClick="Button2_Click" />
         <table style="text-align:center;border:solid 1px #000000;">
             <asp:Repeater ID="Repeater1" runat="server" OnItemCommand="Repeater1_ItemCommand">
                 <HeaderTemplate>
